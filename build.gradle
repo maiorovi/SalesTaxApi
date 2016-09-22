@@ -1,7 +1,8 @@
 group 'org.kiev'
 version '1.0-SNAPSHOT'
 
-apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'jetty'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -19,4 +20,15 @@ dependencies {
     compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet-core', version: '2.23.2'
     compile group: 'org.glassfish.jersey.core', name: 'jersey-server', version: '2.23.2'
     compile group: 'org.springframework', name: 'spring-web', version: '3.2.17.RELEASE'
+    compile group: 'org.glassfish.jersey.ext', name: 'jersey-spring3', version: '2.23.2'
+}
+
+war {
+    webXml = file('src/webapp/web.xml')
+    archiveName = 'taxcalculator'
+//    from('src/main/resources') {
+//        include 'applicationContext.xml'
+//        into 'WEB-INF/classes'
+//    }
+
 }
