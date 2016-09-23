@@ -7,5 +7,14 @@
 
 
     <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
-    <bean class="services.TestService" id="testService" />
+
+    <bean class="services.CategoryLookupService" id="lookupService">
+        <constructor-arg name="itemCategoryDataProvider" ref="categoryDataProvider" />
+    </bean>
+
+    <bean class="providers.ItemCategoryDataProvider" id="categoryDataProvider" />
+    <bean class="services.TaxCalculationService">
+        <constructor-arg ref="lookupService" name="categoryLookupService" />
+    </bean>
+
 </beans>

@@ -26,9 +26,4 @@ dependencies {
 war {
     webXml = file('src/webapp/web.xml')
     archiveName = 'taxcalculator'
-//    from('src/main/resources') {
-//        include 'applicationContext.xml'
-//        into 'WEB-INF/classes'
-//    }
-
 }
