@@ -9,7 +9,7 @@ public class LookupServiceTest {
 
     @Before
     public void setUp() {
-        categoryLookupService = new CategoryLookupService();
+        categoryLookupService = new CategoryLookupService(null);
     }
 
     @Test

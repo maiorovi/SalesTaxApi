@@ -1,12 +1,10 @@
 package domain;
 
-//import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
-//@JsonIgnoreProperties(ignoreUnknown = true)
 public class Item {
     private String description;
     private int count;
     private double unitPrice;
+    private boolean imported;
 
     public String getDescription() {
         return description;
@@ -30,6 +28,14 @@ public class Item {
 
     public void setUnitPrice(double unitPrice) {
         this.unitPrice = unitPrice;
+    }
+
+    public boolean isImported() {
+        return imported;
+    }
+
+    public void setImported(boolean imported) {
+        this.imported = imported;
     }
 
     @Override

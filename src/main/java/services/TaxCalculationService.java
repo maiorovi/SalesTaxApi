@@ -1,6 +1,7 @@
 package services;
 
 import domain.Item;
+import domain.SalesTaxItem;
 import util.ItemCategorie;
 
 import java.text.DecimalFormat;
@@ -9,28 +10,34 @@ import java.util.List;
 public class TaxCalculationService {
 
     private static final Double TAX_RATE = 0.1;
+    private static final Double IMPORT_RATE = 0.05;
     private CategoryLookupService categoryLookupService;
 
     public TaxCalculationService(CategoryLookupService categoryLookupService) {
         this.categoryLookupService = categoryLookupService;
     }
 
-    public Double calculateTax(Item item) {
+    public SalesTaxItem calculateTax(Item item) {
         double result = 0;
+        double totalPrice = item.getUnitPrice() * item.getCount();
 
         if (shouldCalculateTax(item)) {
-            result = (item.getUnitPrice() * item.getCount() * TAX_RATE);
+            result = ( totalPrice * TAX_RATE);
         }
 
-        return result;
+        if(item.isImported()) {
+            result += (totalPrice * IMPORT_RATE);
+        }
+
+        return new SalesTaxItem(result);
     }
 
-    public Double calculateTax(List<Item> items) {
+    public SalesTaxItem calculateTax(List<Item> items) {
         double sum = 0.0;
 
-        sum = items.stream().map(this::calculateTax).reduce(0d, Double::sum);
+        sum = items.stream().map(this::calculateTax).map(it -> it.getSalesTaxAmount()).reduce(0d, Double::sum);
 
-        return roundPrice(sum);
+        return new SalesTaxItem(roundPrice(sum));
     }
 
     private boolean shouldCalculateTax(Item item) {

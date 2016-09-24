@@ -13,6 +13,7 @@
     </bean>
 
     <bean class="providers.ItemCategoryDataProvider" id="categoryDataProvider" />
+
     <bean class="services.TaxCalculationService">
         <constructor-arg ref="lookupService" name="categoryLookupService" />
     </bean>
