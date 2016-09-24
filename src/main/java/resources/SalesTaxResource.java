@@ -8,18 +8,18 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-@Path("/tax")
+@Path("/calculatetax")
 public class SalesTaxResource {
 
     @Inject
     private TaxCalculationService calculationService;
 
+    //handle exception there. something could go wrong and produce error response
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public SalesTaxItem receiveInfo(List<Item> items) {
+    public SalesTaxItem calculateTax(List<Item> items) {
         SalesTaxItem taxAmount = calculationService.calculateTax(items);
-        items.forEach( item -> System.out.println(item));
         return  taxAmount;
     }
 
